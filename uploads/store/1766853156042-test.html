@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Global Animation System Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* ============= Reset بسيط ============= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro", sans-serif;
+      background: #050816;
+      color: #f5f5f5;
+      line-height: 1.7;
+    }
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    h1, h2 {
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    p {
+      opacity: .85;
+      margin-bottom: 12px;
+    }
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (max-width: 768px) {
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      padding: 20px;
+      border-radius: 16px;
+      background: radial-gradient(circle at top, rgba(255,255,255,.06), rgba(8,8,16,1));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+    }
+
+    /* =======================================================
+       🎬 GLOBAL ANIMATION SYSTEM (CSS ONLY)
+       ======================================================= */
+
+    [data-animate] {
+      opacity: 0;
+      transform: translate3d(0,0,0);
+      transition-property: opacity, transform;
+      transition-timing-function: var(--animate-ease, cubic-bezier(.33,.02,.11,.99));
+      transition-duration: var(--animate-duration, .8s);
+      will-change: opacity, transform;
+    }
+
+    [data-animate].is-animated {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* === Fade Variants === */
+    [data-animate="fade-in"] {
+      transform: translateY(0);
+    }
+    [data-animate="fade-up"] {
+      transform: translateY(var(--animate-distance, 40px));
+    }
+    [data-animate="fade-down"] {
+      transform: translateY(calc(var(--animate-distance, 40px) * -1));
+    }
+    [data-animate="fade-left"] {
+      transform: translateX(var(--animate-distance, 40px));
+    }
+    [data-animate="fade-right"] {
+      transform: translateX(calc(var(--animate-distance, 40px) * -1));
+    }
+
+    /* === Slide Variants (نفس الفكرة لكن تقدر تفرق لو حابب) === */
+    [data-animate="slide-up"] {
+      transform: translateY(var(--animate-distance, 60px));
+    }
+    [data-animate="slide-down"] {
+      transform: translateY(calc(var(--animate-distance, 60px) * -1));
+    }
+
+    /* === Zoom Variants === */
+    [data-animate="zoom-in"] {
+      transform: scale(.85);
+    }
+    [data-animate="zoom-out"] {
+      transform: scale(1.15);
+    }
+
+    /* === Rotate / Subtle Flip === */
+    [data-animate="rotate-in"] {
+      transform-origin: center;
+      transform: translateY(40px) rotate3d(0,0,1,-6deg);
+    }
+
+    /* Hover trigger (data-trigger="hover") */
+    [data-trigger="hover"] {
+      opacity: 1;
+      transform: none;
+      transition: transform .35s ease, box-shadow .35s ease, opacity .35s ease;
+      cursor: pointer;
+    }
+    [data-trigger="hover"]:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.5);
+    }
+
+    /* شكل بسيط للمساعدات */
+    .label {
+      display: inline-flex;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      margin-bottom: 6px;
+      opacity: .85;
+    }
+
+    .spacer {
+      height: 40px;
+    }
+
+    .anchor-marker {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,255,255,.5);
+      color: #0ff;
+      font-size: 12px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(0,0,0,.5);
+      margin-bottom: 16px;
+    }
+
+    /* اختيارية: تقليل الحركة إذا المستخدم مفعّل prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate] {
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="label">Global Animation System</div>
+    <h1 data-animate="fade-up" data-delay="0s" data-distance="40px">
+      نظام أنيميشن عالمي خفيف، مبني على data-attributes فقط
+    </h1>
+    <p data-animate="fade-up" data-delay="0.15s" data-distance="30px">
+      المثال ده بيعرض كل الأنماط الأساسية: Fade, Slide, Zoom, Rotate, Stagger, Anchor, Hover, In-view.
+    </p>
+  </section>
+
+  <!-- Fade & Directions -->
+  <section>
+    <div class="label">Fade & Direction</div>
+    <h2>أمثلة على حركات الدخول الأساسية</h2>
+    <div class="grid grid-3">
+      <div class="card" data-animate="fade-up" data-delay="0s" data-distance="40px">
+        <strong>fade-up</strong>
+        <p>صعود ناعم من الأسفل، الأكثر استخدامًا في السكاشن.</p>
+      </div>
+      <div class="card" data-animate="fade-down" data-delay="0.1s" data-distance="40px">
+        <strong>fade-down</strong>
+        <p>نزول من الأعلى مناسب للعناوين فوق المحتوى.</p>
+      </div>
+      <div class="card" data-animate="fade-left" data-delay="0.2s" data-distance="40px">
+        <strong>fade-left</strong>
+        <p>دخول من اليسار (في RTL يكون إحساسه طبيعي جدًا).</p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="grid grid-3">
+      <div class="card" data-animate="fade-right" data-delay="0s" data-distance="40px">
+        <strong>fade-right</strong>
+        <p>دخول من اليمين، ممتاز للبطاقات الجانبية.</p>
+      </div>
+      <div class="card" data-animate="slide-up" data-delay="0.1s" data-distance="60px">
+        <strong>slide-up</strong>
+        <p>حركة مسافة أطول، حاسس أكتر كـ “scroll reveal”.</p>
+      </div>
+      <div class="card" data-animate="rotate-in" data-delay="0.15s">
+        <strong>rotate-in</strong>
+        <p>تدويرة بسيطة أنيقة، استخدمها للعناصر الخاصة بس.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zoom & Duration & Easing -->
+  <section>
+    <div class="label">Zoom / Duration / Easing</div>
+    <h2>التحكم في الزمن ومنحنى الحركة</h2>
+    <div class="grid grid-3">
+      <div class="card"
+           data-animate="zoom-in"
+           data-delay="0s"
+           data-duration="0.6s"
+           data-easing="ease-out">
+        <strong>zoom-in سريع</strong>
+        <p>مناسب للأزرار أو Call to Action.</p>
+      </div>
+      <div class="card"
+           data-animate="zoom-in"
+           data-delay="0.15s"
+           data-duration="1s"
+           data-easing="cubic-bezier(.33,.02,.11,.99)">
+        <strong>zoom-in ناعم</strong>
+        <p>إحساس فخم زي Animations في منتجات أبل.</p>
+      </div>
+      <div class="card"
+           data-animate="zoom-out"
+           data-delay="0.2s"
+           data-duration="0.9s">
+        <strong>zoom-out</strong>
+        <p>يقلل الحجم من كبير لعادي، حلو للبانرات.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stagger Example -->
+  <section>
+    <div class="label">Stagger</div>
+    <h2>تسلسل أنيميشن للكروت (Stagger)</h2>
+    <div class="grid grid-3">
+      <div class="card"
+           data-animate="fade-up"
+           data-stagger="group-1"
+           data-delay-base="0"
+           data-distance="40px">
+        <strong>Card 1</strong>
+        <p>هتلاحظ أنها تطلع متسلسلة مع باقي الكروت.</p>
+      </div>
+      <div class="card"
+           data-animate="fade-up"
+           data-stagger="group-1"
+           data-delay-base="0"
+           data-distance="40px">
+        <strong>Card 2</strong>
+        <p>نفس الجروب → نفس التايمينج + أوفست تلقائي.</p>
+      </div>
+      <div class="card"
+           data-animate="fade-up"
+           data-stagger="group-1"
+           data-delay-base="0"
+           data-distance="40px">
+        <strong>Card 3</strong>
+        <p>يوصل لإحساس “Grid Reveal” عالمي بخطين كود.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anchor Example -->
+  <section id="anchor-section">
+    <div class="anchor-marker">
+      <span>🎯 Anchor</span>
+      <span>عند ظهور هذا السكشن → فعّل عناصر مرتبطة في الأسفل</span>
+    </div>
+    <p>اسكرول لتحت، هتشوف عناصر بتتحرك مش لما هي تدخل، لكن لما هذا السكشن يدخل.</p>
+  </section>
+
+  <section>
+    <div class="label">Linked to Anchor</div>
+    <h2>أنيميشن مرتبط بـ data-anchor="#anchor-section"</h2>
+    <div class="grid grid-3">
+      <div class="card"
+           data-animate="fade-up"
+           data-anchor="#anchor-section"
+           data-delay="0s">
+        <strong>Anchor Linked 1</strong>
+        <p>تتحرك أول ما سكشن الـ Anchor فوق يدخل.</p>
+      </div>
+      <div class="card"
+           data-animate="fade-up"
+           data-anchor="#anchor-section"
+           data-delay="0.15s">
+        <strong>Anchor Linked 2</strong>
+        <p>تأخير بسيط لخلق إحساس Timeline.</p>
+      </div>
+      <div class="card"
+           data-animate="fade-up"
+           data-anchor="#anchor-section"
+           data-delay="0.3s">
+        <strong>Anchor Linked 3</strong>
+        <p>كل ده من غير مكتبة خارجية.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hover Trigger -->
+  <section>
+    <div class="label">Hover Trigger</div>
+    <h2>data-trigger="hover"</h2>
+    <div class="grid grid-3">
+      <div class="card" data-trigger="hover">
+        <strong>Hover Card</strong>
+        <p>بيتحرك بس على الهوفر، مفيد للـ UI التفاعلي.</p>
+      </div>
+      <div class="card" data-trigger="hover">
+        <strong>Hover Card</strong>
+        <p>مفيش Observer هنا، كله CSS.</p>
+      </div>
+      <div class="card" data-trigger="hover">
+        <strong>Hover Card</strong>
+        <p>خفيف جدًا ومباشر.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // =======================================================
+    // 🎥 Global Animation Controller (Vanilla + Lightweight)
+    // =======================================================
+    (function () {
+      const animatedSelector = '[data-animate]';
+      const elements = Array.from(document.querySelectorAll(animatedSelector));
+
+      if (!('IntersectionObserver' in window)) {
+        // Fallback: فعل كل الأنيميشن في حال المتصفح قديم
+        elements.forEach(el => el.classList.add('is-animated'));
+        return;
+      }
+
+      // تحضير Stagger Groups
+      const groups = {};
+      elements.forEach((el, index) => {
+        const staggerGroup = el.dataset.stagger;
+        if (staggerGroup) {
+          if (!groups[staggerGroup]) groups[staggerGroup] = [];
+          groups[staggerGroup].push(el);
+        }
+        // default index for delay chaining
+        el.dataset.index = index;
+      });
+
+      // تطبيق stagger delay داخل كل جروب
+      Object.keys(groups).forEach(groupKey => {
+        const group = groups[groupKey];
+        group.forEach((el, i) => {
+          const base = parseFloat(el.dataset.delayBase || '0') || 0;
+          const step = parseFloat(el.dataset.staggerStep || '0.07') || 0.07;
+          el.dataset.delay = (base + i * step).toFixed(2) + 's';
+        });
+      });
+
+      // Anchor mapping
+      const anchorMap = {};
+      elements.forEach(el => {
+        const anchor = el.dataset.anchor;
+        if (anchor) {
+          if (!anchorMap[anchor]) anchorMap[anchor] = [];
+          anchorMap[anchor].push(el);
+        }
+      });
+
+      // Observer للحالات العادية (in-view أو anchor-less)
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const target = entry.target;
+
+          // عناصر anchor: لما العنصر الـ anchor يظهر → نفعل العناصر المرتبطة
+          const anchorKey = '#' + target.id;
+          if (anchorMap[anchorKey] && entry.isIntersecting) {
+            anchorMap[anchorKey].forEach(el => triggerAnimate(el));
+          }
+
+          // عناصر عادية بدون anchor
+          if (target.hasAttribute('data-animate') && !target.dataset.anchor) {
+            if (entry.isIntersecting) {
+              triggerAnimate(target);
+              if (target.dataset.repeat !== 'true') {
+                observer.unobserve(target);
+              }
+            }
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+
+      // ربط العناصر بالـ observer
+      elements.forEach(el => {
+        const trigger = el.dataset.trigger || 'in-view';
+        if (trigger === 'in-view' || el.dataset.anchor) {
+          // anchor targets or normal animated elements
+          const anchor = el.dataset.anchor;
+          if (!anchor) {
+            observer.observe(el);
+          }
+        }
+      });
+
+      // Observe anchor elements
+      Object.keys(anchorMap).forEach(anchorSelector => {
+        const anchorEl = document.querySelector(anchorSelector);
+        if (anchorEl) observer.observe(anchorEl);
+      });
+
+      // on-load trigger
+      elements.forEach(el => {
+        if ((el.dataset.trigger || '').toLowerCase() === 'on-load') {
+          triggerAnimate(el);
+        }
+      });
+
+      function triggerAnimate(el) {
+        if (el.classList.contains('is-animated')) return;
+
+        const delay = el.dataset.delay || '0s';
+        const duration = el.dataset.duration || '.8s';
+        const easing = el.dataset.easing || 'cubic-bezier(.33,.02,.11,.99)';
+        const distance = el.dataset.distance;
+
+        if (distance) {
+          el.style.setProperty('--animate-distance', distance);
+        }
+        el.style.transitionDelay = delay;
+        el.style.setProperty('--animate-duration', duration);
+        el.style.setProperty('--animate-ease', easing);
+
+        requestAnimationFrame(() => {
+          el.classList.add('is-animated');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
