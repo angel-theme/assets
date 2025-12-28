@@ -13,32 +13,23 @@
   <meta name="theme-color" content="#05060a" />
 
   <style>
-    /* ==========================================================================
-      Angel Theme — Assets Landing (Apple-like)
-      - Single file (HTML+CSS+JS)
-      - No SEO indexing
-      - No external requests, no trackers, no fonts
-    ========================================================================== */
-
     :root{
       --bg0:#05060a;
       --bg1:#070813;
       --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.09);
       --stroke: rgba(255,255,255,.12);
       --stroke2: rgba(255,255,255,.18);
 
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.62);
-      --soft: rgba(255,255,255,.45);
 
       --cyan:#19b8dd;
       --teal:#2a8ca3;
       --vio:#7c5cff;
-      --pink:#ff4fd8;
 
       --shadow: 0 30px 80px rgba(0,0,0,.55);
       --shadow2: 0 20px 50px rgba(0,0,0,.45);
+
       --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
@@ -49,8 +40,9 @@
       --maxw: 1080px;
     }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
@@ -58,12 +50,11 @@
       background:
         radial-gradient(1100px 700px at 20% 12%, rgba(25,184,221,.22), transparent 62%),
         radial-gradient(1000px 720px at 84% 18%, rgba(124,92,255,.18), transparent 65%),
-        radial-gradient(900px 700px at 60% 88%, rgba(255,79,216,.10), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
 
-    /* Light noise overlay (pure CSS, no images) */
+    /* Noise overlay (CSS only) */
     body::before{
       content:"";
       position:fixed;
@@ -72,18 +63,18 @@
       background:
         radial-gradient(circle at 10% 20%, rgba(255,255,255,.05) 0 1px, transparent 2px) 0 0/26px 26px,
         radial-gradient(circle at 70% 60%, rgba(255,255,255,.03) 0 1px, transparent 2px) 0 0/32px 32px;
-      opacity:.14;
+      opacity:.12;
       mix-blend-mode: overlay;
       filter: blur(.2px);
     }
 
-    /* Top nav */
+    /* Header */
     .nav{
       position: sticky;
       top:0;
       z-index: 50;
       backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(5,6,10,.78), rgba(5,6,10,.38));
+      background: linear-gradient(180deg, rgba(5,6,10,.78), rgba(5,6,10,.35));
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
     .nav__inner{
@@ -121,7 +112,7 @@
       opacity:.55;
     }
     @keyframes shine{
-      0% { transform: translateX(-70%) rotate(14deg); opacity:.0;}
+      0% { transform: translateX(-70%) rotate(14deg); opacity:0;}
       18% { opacity:.55;}
       50% { transform: translateX(70%) rotate(14deg); opacity:.35;}
       100% { transform: translateX(70%) rotate(14deg); opacity:0;}
@@ -148,26 +139,8 @@
       display:flex;
       align-items:center;
       gap:10px;
-    }
-
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      font-size: 12px;
-      user-select:none;
-      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
-    }
-    .chip:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.16);
-      color: rgba(255,255,255,.72);
+      flex-wrap: wrap;
+      justify-content:flex-end;
     }
 
     .btn{
@@ -179,20 +152,24 @@
       font-weight: 900;
       font-size: 12.5px;
       letter-spacing: .2px;
-      color: #071018;
-      background: linear-gradient(135deg, var(--cyan), var(--teal));
-      box-shadow: 0 18px 42px rgba(25,184,221,.18);
-      transition: transform .25s var(--ease), filter .25s var(--ease);
       text-decoration:none;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:10px;
       min-width: 164px;
+      transition: transform .25s var(--ease), filter .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+      user-select:none;
+      white-space: nowrap;
     }
     .btn:hover{ transform: translateY(-2px); filter: brightness(1.04); }
     .btn:active{ transform: translateY(0px) scale(.99); }
 
+    .btn--primary{
+      color: #071018;
+      background: linear-gradient(135deg, var(--cyan), var(--teal));
+      box-shadow: 0 18px 42px rgba(25,184,221,.18);
+    }
     .btn--ghost{
       background: rgba(255,255,255,.04);
       color: var(--text);
@@ -209,7 +186,7 @@
     .wrap{
       max-width: var(--maxw);
       margin:0 auto;
-      padding: 34px 18px 80px;
+      padding: 34px 18px 84px;
     }
 
     /* Hero */
@@ -220,7 +197,7 @@
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       box-shadow: var(--shadow);
       overflow:hidden;
-      padding: 44px 22px;
+      padding: 54px 24px;
     }
     .hero::before{
       content:"";
@@ -228,8 +205,7 @@
       inset:-1px;
       background:
         radial-gradient(900px 540px at 18% 10%, rgba(25,184,221,.22), transparent 60%),
-        radial-gradient(900px 600px at 82% 22%, rgba(124,92,255,.18), transparent 62%),
-        radial-gradient(900px 600px at 60% 88%, rgba(255,79,216,.10), transparent 62%);
+        radial-gradient(900px 600px at 82% 22%, rgba(124,92,255,.18), transparent 62%);
       pointer-events:none;
       opacity:.85;
       filter: blur(6px);
@@ -239,24 +215,23 @@
       position:absolute;
       inset: 0;
       pointer-events:none;
-      background:
-        linear-gradient(120deg, transparent 30%, rgba(255,255,255,.08) 50%, transparent 70%);
-      opacity:.25;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.08) 50%, transparent 70%);
+      opacity:.22;
       transform: translateX(-40%);
       animation: heroSweep 9s var(--ease2) infinite;
     }
     @keyframes heroSweep{
-      0% { transform: translateX(-55%); opacity: .0; }
-      15% { opacity: .25; }
-      50% { transform: translateX(55%); opacity: .20; }
-      100% { transform: translateX(55%); opacity: 0; }
+      0% { transform: translateX(-55%); opacity:0; }
+      15% { opacity:.22; }
+      50% { transform: translateX(55%); opacity:.18; }
+      100% { transform: translateX(55%); opacity:0; }
     }
 
     .hero__inner{
       position:relative;
       z-index:1;
       display:grid;
-      grid-template-columns: 1.25fr .75fr;
+      grid-template-columns: 1.2fr .8fr;
       gap: 26px;
       align-items:center;
     }
@@ -282,9 +257,9 @@
 
     .hero__title{
       margin:0;
-      font-size: 38px;
-      line-height: 1.1;
-      letter-spacing: -.5px;
+      font-size: 40px;
+      line-height: 1.08;
+      letter-spacing: -.6px;
       font-weight: 950;
     }
     .grad{
@@ -293,7 +268,7 @@
       background-clip:text;
       color: transparent;
     }
-    .hero__title .accent{
+    .accent{
       background: linear-gradient(135deg, var(--cyan), var(--vio));
       -webkit-background-clip:text;
       background-clip:text;
@@ -302,7 +277,7 @@
 
     .hero__desc{
       margin: 14px 0 0;
-      max-width: 560px;
+      max-width: 620px;
       color: var(--muted);
       font-size: 14.5px;
       line-height: 1.9;
@@ -316,123 +291,101 @@
       align-items:center;
     }
 
-    /* Hero right card (Apple-ish) */
+    /* Hero side card */
     .glass{
       position:relative;
-      border-radius: 22px;
+      border-radius: var(--radius-lg);
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.28);
       box-shadow: var(--shadow2);
       padding: 18px;
       overflow:hidden;
-      transform: translateZ(0);
     }
     .glass::before{
       content:"";
       position:absolute;
-      inset: -1px;
+      inset:-1px;
       background: radial-gradient(600px 420px at 30% 20%, rgba(25,184,221,.20), transparent 60%);
       opacity:.75;
       pointer-events:none;
     }
-    .glass__head{
+    .glass__title{
+      position:relative;
+      z-index:1;
+      margin:0;
+      font-weight: 950;
+      font-size: 14px;
+      letter-spacing: -.1px;
+    }
+    .glass__desc{
+      position:relative;
+      z-index:1;
+      margin: 10px 0 0;
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+    .glass__mini{
+      position:relative;
+      z-index:1;
+      margin-top: 14px;
+      display:grid;
+      gap:10px;
+    }
+    .miniRow{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px 12px;
       display:flex;
       align-items:center;
       justify-content: space-between;
-      gap:12px;
-      position:relative;
-      z-index:1;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.78);
-      font-size: 12px;
-    }
-    .pill b{ color: rgba(255,255,255,.92); }
-
-    .glass__body{
-      margin-top: 14px;
-      position:relative;
-      z-index:1;
-    }
-    .kv{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 12px;
-    }
-    .kv__item{
-      padding: 12px 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
-      transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
-    }
-    .kv__item:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.16);
-      background: rgba(255,255,255,.055);
-    }
-    .kv__k{
-      font-size: 11.5px;
-      color: rgba(255,255,255,.62);
-      margin-bottom: 6px;
-    }
-    .kv__v{
-      font-weight: 900;
       font-size: 12.5px;
-      color: rgba(255,255,255,.90);
+      color: rgba(255,255,255,.78);
+    }
+    .miniRow b{
+      color: rgba(255,255,255,.92);
+      font-weight: 950;
     }
 
-    /* Sections */
+    /* Section base */
     .section{
-      margin-top: 22px;
+      margin-top: 18px;
       border-radius: var(--radius-xl);
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      padding: 26px 20px;
+      padding: 28px 20px;
       box-shadow: 0 10px 40px rgba(0,0,0,.26);
-    }
-    .section__head{
-      display:flex;
-      align-items:flex-end;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 16px;
     }
     .section__title{
       margin:0;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 950;
       letter-spacing: -.2px;
     }
     .section__sub{
-      margin: 8px 0 0;
+      margin: 10px 0 0;
       color: var(--muted);
       font-size: 13.5px;
       line-height: 1.9;
-      max-width: 720px;
+      max-width: 760px;
     }
 
-    /* Feature grid */
+    /* Feature cards */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
-      margin-top: 16px;
+      margin-top: 18px;
     }
+
     .card{
       position:relative;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.30);
-      padding: 16px 16px 18px;
+      padding: 18px 16px;
       overflow:hidden;
       transition: transform .28s var(--ease), border-color .28s var(--ease), background .28s var(--ease);
       will-change: transform;
@@ -451,10 +404,9 @@
       opacity: .9;
       transition: opacity .25s var(--ease);
     }
-    .card:hover::before{ opacity: 1; }
 
     .ico{
-      width: 42px; height: 42px;
+      width: 44px; height: 44px;
       border-radius: 14px;
       display:grid;
       place-items:center;
@@ -463,15 +415,13 @@
       box-shadow: 0 16px 40px rgba(0,0,0,.35);
       margin-bottom: 12px;
     }
-    .ico svg{
-      width: 22px; height: 22px;
-      opacity: .92;
-    }
+    .ico svg{ width: 22px; height: 22px; opacity: .92; }
 
     .card h3{
       margin:0 0 8px;
-      font-size: 14.5px;
+      font-size: 15px;
       font-weight: 950;
+      letter-spacing: -.1px;
     }
     .card p{
       margin:0;
@@ -480,105 +430,39 @@
       line-height: 1.85;
     }
 
-    /* Notice bar */
-    .notice{
+    /* Contact */
+    .contactBox{
       margin-top: 18px;
-      border-radius: 18px;
-      border: 1px dashed rgba(255,255,255,.18);
-      background: rgba(0,0,0,.28);
-      padding: 14px 14px;
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      line-height: 1.9;
-      display:flex;
-      gap: 12px;
-      align-items:flex-start;
-    }
-    .notice b{ color: rgba(255,255,255,.92); }
-    .notice .mini{
-      width: 10px; height: 10px; border-radius: 99px;
-      background: linear-gradient(135deg, var(--pink), var(--vio));
-      box-shadow: 0 0 0 6px rgba(255,79,216,.10);
-      margin-top: 6px;
-      flex: 0 0 auto;
-    }
-
-    /* FAQ */
-    details{
-      border-radius: 18px;
+      border-radius: var(--radius-xl);
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.30);
-      padding: 14px 14px;
-      transition: border-color .25s var(--ease), background .25s var(--ease);
-    }
-    details[open]{
-      border-color: rgba(255,255,255,.16);
-      background: rgba(0,0,0,.35);
-    }
-    summary{
-      cursor:pointer;
-      list-style:none;
+      background: linear-gradient(180deg, rgba(0,0,0,.26), rgba(0,0,0,.34));
+      padding: 28px 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.26);
       display:flex;
       align-items:center;
       justify-content: space-between;
-      gap: 14px;
-      font-weight: 950;
-      font-size: 13.5px;
-      user-select:none;
-    }
-    summary::-webkit-details-marker { display:none; }
-    .faq__body{
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.9;
-    }
-    .chev{
-      width: 28px; height: 28px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      display:grid;
-      place-items:center;
-      transition: transform .25s var(--ease);
-      flex: 0 0 auto;
-    }
-    details[open] .chev{ transform: rotate(180deg); }
-    .chev svg{ width: 16px; height: 16px; opacity: .9; }
-
-    .faqGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    /* Footer */
-    .foot{
-      margin-top: 18px;
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 12px;
-      color: rgba(255,255,255,.45);
-      font-size: 12px;
-      padding: 0 4px;
+      gap: 16px;
       flex-wrap: wrap;
     }
-
-    .link{
-      color: rgba(255,255,255,.65);
-      text-decoration:none;
-      border-bottom: 1px solid rgba(255,255,255,.18);
-      padding-bottom: 2px;
-      transition: color .2s var(--ease), border-color .2s var(--ease);
+    .contactText{
+      min-width: 240px;
+      flex: 1 1 auto;
     }
-    .link:hover{
-      color: rgba(255,255,255,.90);
-      border-color: rgba(255,255,255,.28);
+    .contactTitle{
+      margin:0;
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -.1px;
+    }
+    .contactSub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.9;
+      max-width: 680px;
     }
 
-    /* Reveal animation */
+    /* Reveal */
     .reveal{
       opacity: 0;
       transform: translateY(18px);
@@ -589,19 +473,27 @@
       transform: translateY(0);
     }
 
+    /* Footer */
+    .foot{
+      margin-top: 20px;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+      text-align:center;
+      padding: 0 4px;
+    }
+
     /* Responsive */
     @media (max-width: 980px){
       .hero__inner{ grid-template-columns: 1fr; }
       .grid{ grid-template-columns: 1fr; }
-      .faqGrid{ grid-template-columns: 1fr; }
       .hero__title{ font-size: 34px; }
+      .nav__actions .btn{ min-width: 140px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Top Nav -->
   <header class="nav" role="banner" aria-label="Navigation">
     <div class="nav__inner">
       <div class="brand">
@@ -613,15 +505,11 @@
       </div>
 
       <div class="nav__actions">
-        <span class="chip" id="chipStatus" title="لا يوجد تتبع / لا فهرسة">
-          <span aria-hidden="true">🔒</span>
-          Private by design
-        </span>
         <a class="btn btn--ghost" href="https://salla.sa/themes/angel" target="_blank" rel="noreferrer noopener">
           معرفة المزيد
         </a>
-        <a class="btn" href="https://wa.me/966000000000" target="_blank" rel="noreferrer noopener">
-          تواصل معنا
+        <a class="btn btn--primary" href="https://wa.me/966000000000" target="_blank" rel="noreferrer noopener">
+          واتساب الدعم
         </a>
       </div>
     </div>
@@ -629,7 +517,7 @@
 
   <div class="wrap">
 
-    <!-- Hero -->
+    <!-- HERO -->
     <section class="hero reveal" id="hero">
       <div class="hero__inner">
         <div>
@@ -639,80 +527,45 @@
           </div>
 
           <h1 class="hero__title">
-            <span class="grad">أصول الثيم</span>…<br>
-            بتشتغل بهدوء، <span class="accent">مش بتتكلم كتير</span>.
+            <span class="grad">Assets</span> الخاصة بـ <span class="accent">Angel Theme</span>
           </h1>
 
           <p class="hero__desc">
-            أنت الآن في مسار <b>Assets</b> الخاص بثيم ملاك. هذا المسار جزء من النظام الداخلي لتخزين الملفات
-            وروابطها بشكل منظم وآمن. لا توجد واجهة رفع هنا، لأن الرفع يتم من داخل الثيم فقط.
-            <br>
-            لو وصلت لهنا بالصدفة: تمام. لو وصلت لهنا بالفضول: برضه تمام… بس إحنا فاهمين.
+            هذا المسار جزء من البنية الداخلية لثيم ملاك، ويُستخدم لتخزين ملفات وروابط يتم إدارتها تلقائيًا من داخل الثيم.
+            لا توجد هنا واجهة رفع عامة أو أدوات متاحة للزوار.
           </p>
 
           <div class="hero__cta">
-            <a class="btn" href="https://salla.sa/themes/angel" target="_blank" rel="noreferrer noopener">
+            <a class="btn btn--primary" href="https://salla.sa/themes/angel" target="_blank" rel="noreferrer noopener">
               اكتشف ثيم ملاك
             </a>
             <a class="btn btn--ghost" href="#features">
-              لماذا هذا المسار موجود؟
+              مزايا مركز الرفع
             </a>
           </div>
         </div>
 
-        <aside class="glass" aria-label="Quick facts">
-          <div class="glass__head">
-            <span class="pill"><b>Angel</b> • Internal</span>
-            <span class="pill" id="rtlpill">RTL • ON</span>
-          </div>
+        <aside class="glass" aria-label="About">
+          <h2 class="glass__title">معلومة سريعة</h2>
+          <p class="glass__desc">
+            إدارة الملفات تتم حصريًا من داخل أدوات الثيم لضمان التنظيم والأمان وتجربة تاجر احترافية.
+          </p>
 
-          <div class="glass__body">
-            <div class="pill" style="width:100%; justify-content:space-between;">
-              <span>الحالة</span>
-              <b id="runtime">Secure</b>
-            </div>
-
-            <div class="kv">
-              <div class="kv__item">
-                <div class="kv__k">الفهرسة</div>
-                <div class="kv__v">مقفولة (noindex)</div>
-              </div>
-              <div class="kv__item">
-                <div class="kv__k">التتبع</div>
-                <div class="kv__v">0 Tracking</div>
-              </div>
-              <div class="kv__item">
-                <div class="kv__k">محتوى الصفحة</div>
-                <div class="kv__v">Landing فقط</div>
-              </div>
-              <div class="kv__item">
-                <div class="kv__k">الرفع</div>
-                <div class="kv__v">من داخل الثيم</div>
-              </div>
-            </div>
-
-            <div class="notice" style="margin-top:14px;">
-              <span class="mini" aria-hidden="true"></span>
-              <div>
-                <b>ملاحظة ذكية:</b> صفحة “Assets” ليست نقطة دخول.
-                هي مجرد واجهة هوية… عشان اللي يحاول “يحزق” في الرابط، يفهم إن النظام متقفل صح.
-              </div>
-            </div>
+          <div class="glass__mini" aria-hidden="true">
+            <div class="miniRow"><span>الفهرسة</span><b>noindex</b></div>
+            <div class="miniRow"><span>التتبع</span><b>0 Tracking</b></div>
+            <div class="miniRow"><span>الرفع</span><b>Inside Theme</b></div>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- Features -->
+    <!-- FEATURES -->
     <section class="section reveal" id="features">
-      <div class="section__head">
-        <div>
-          <h2 class="section__title">مزايا نظام مركز الرفع داخل الثيم</h2>
-          <p class="section__sub">
-            بدل ما تكون الأدوات مكشوفة، الثيم يدير كل شيء من الداخل: تنظيم، عزل، روابط ثابتة، وتجربة تاجر محترمة.
-          </p>
-        </div>
-      </div>
+      <h2 class="section__title">مزايا مركز الرفع داخل الثيم</h2>
+      <p class="section__sub">
+        تجربة رفع ملفات منظمة وآمنة، مصممة للتاجر داخل الثيم — بدون صفحات عامة أو حلول مكشوفة.
+      </p>
 
       <div class="grid" role="list">
         <article class="card" role="listitem">
@@ -723,8 +576,8 @@
               <path d="M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
-          <h3>رفع سريع، بدون تعقيد</h3>
-          <p>من داخل الثيم فقط. لا صفحات عامة ولا نقاط دخول مكشوفة.</p>
+          <h3>رفع سريع وبسيط</h3>
+          <p>رفع الملفات يتم من لوحة الثيم مباشرة بدون روابط عامة أو خطوات معقدة.</p>
         </article>
 
         <article class="card" role="listitem">
@@ -734,8 +587,8 @@
               <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>آمن ومغلق “بالطريقة الصح”</h3>
-          <p>تجربة مستخدم نظيفة + مسارات داخلية تمنع العبث المباشر.</p>
+          <h3>تنظيم وأمان</h3>
+          <p>كل متجر له مسار خاص وروابط ثابتة، مع إدارة داخلية تمنع العبث.</p>
         </article>
 
         <article class="card" role="listitem">
@@ -745,131 +598,45 @@
               <path d="M18 10v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </div>
-          <h3>تنظيم تلقائي للملفات</h3>
-          <p>لكل متجر مسار خاص، وملفات قابلة للإدارة والرجوع لها بسهولة.</p>
+          <h3>إدارة روابط تلقائية</h3>
+          <p>بعد الرفع يتم توليد الرابط مباشرة للاستخدام داخل المتجر بدون تعقيدات.</p>
         </article>
       </div>
+    </section>
 
-      <div class="notice">
-        <span class="mini" aria-hidden="true"></span>
-        <div>
-          <b>معلومة مهمة:</b> لو أنت تشوف الصفحة دي، ده لا يعني إن “الملفات مكشوفة”.
-          ده يعني إن الثيم عامل Landing بذكاء… بدل ما يسيب ساحة فاضية.
-        </div>
+    <!-- CONTACT -->
+    <section class="contactBox reveal" id="contact">
+      <div class="contactText">
+        <h2 class="contactTitle">تحتاج مساعدة أو تفعيل خدمة؟</h2>
+        <p class="contactSub">
+          تواصل معنا على واتساب وسنساعدك في التفعيل أو اختيار الباقة المناسبة.
+        </p>
+      </div>
+      <div>
+        <a class="btn btn--primary" href="https://wa.me/966000000000" target="_blank" rel="noreferrer noopener">
+          واتساب الدعم
+        </a>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section reveal" id="faq">
-      <div class="section__head">
-        <div>
-          <h2 class="section__title">أسئلة شائعة (للناس اللي بتحب تفهم)</h2>
-          <p class="section__sub">
-            إجابات قصيرة… لأن الشغل التقيل مكانه في الثيم، مش هنا.
-          </p>
-        </div>
-      </div>
-
-      <div class="faqGrid">
-        <details>
-          <summary>
-            ليه مفيش رفع هنا؟
-            <span class="chev" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </summary>
-          <div class="faq__body">
-            لأن الرفع يُدار من داخل الثيم فقط، وتحت صلاحيات وتحكمات واضحة.
-            صفحة عامة للرفع = مخاطرة غير لازمة.
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            هل الصفحة دي بتتتبعني؟
-            <span class="chev" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </summary>
-          <div class="faq__body">
-            لا. مفيش Analytics، مفيش Cookies، مفيش Pixels، ومقفولة فهرسة بـ noindex.
-            اللي بيحصل هنا: ولا حاجة.
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            طب لو حد حذف جزء من الرابط؟
-            <span class="chev" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </summary>
-          <div class="faq__body">
-            هيشوف Landing محترمة بدل صفحة فاضية أو “Directory listing”.
-            ودي بالظبط الفكرة: هوية + رسالة + حماية UX.
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            لو أنا مطوّر… فين التفاصيل؟
-            <span class="chev" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </summary>
-          <div class="faq__body">
-            التفاصيل والـ logic موجودين داخل الثيم (File Center + Worker)،
-            مش في صفحة عامة. ده “Security by design” مش استعراض.
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="foot reveal" id="foot">
-      <div>© AfterAds — Angel Theme</div>
-      <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
-        <span>Robots: <b style="color:rgba(255,255,255,.75)">noindex</b></span>
-        <a class="link" href="#features">المزايا</a>
-        <a class="link" href="#faq">الأسئلة</a>
-      </div>
+    <footer class="foot reveal">
+      © AfterAds — Angel Theme
     </footer>
 
   </div>
 
   <script>
     (function () {
-      // ====== Console humor (professional) ======
-      const lines = [
-        "Angel Theme • Assets",
-        "Status: noindex / nofollow / no tracking",
-        "Tip: الأدوات مش هنا… الأدوات جوه الثيم 😄",
-        "If you know, you know."
-      ];
-      try {
-        console.groupCollapsed("%cAngel Theme • Internal", "color:#19b8dd;font-weight:800;");
-        lines.forEach(l => console.log(l));
-        console.groupEnd();
-      } catch (_) {}
-
-      // ====== Reveal on scroll ======
-      const revealEls = Array.from(document.querySelectorAll(".reveal"));
+      // Reveal on scroll
+      const els = Array.from(document.querySelectorAll(".reveal"));
       const io = new IntersectionObserver((entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) e.target.classList.add("is-in");
         });
       }, { threshold: 0.12 });
-      revealEls.forEach(el => io.observe(el));
+      els.forEach(el => io.observe(el));
 
-      // ====== Cards hover spotlight ======
+      // Cards hover spotlight
       const cards = Array.from(document.querySelectorAll(".card"));
       const setVars = (el, x, y) => {
         const r = el.getBoundingClientRect();
@@ -881,22 +648,6 @@
       cards.forEach(card => {
         card.addEventListener("mousemove", (ev) => setVars(card, ev.clientX, ev.clientY), { passive: true });
       });
-
-      // ====== Runtime badge ======
-      const runtime = document.getElementById("runtime");
-      const rtlpill = document.getElementById("rtlpill");
-      const dir = document.documentElement.getAttribute("dir") || "rtl";
-      rtlpill.textContent = (dir.toLowerCase() === "rtl") ? "RTL • ON" : "LTR • ON";
-      runtime.textContent = "Secure";
-
-      // ====== Make nav chip slightly dynamic ======
-      const chip = document.getElementById("chipStatus");
-      let t = 0;
-      setInterval(() => {
-        t += 1;
-        if (!chip) return;
-        chip.style.transform = (t % 2 === 0) ? "translateY(-1px)" : "translateY(0)";
-      }, 1600);
     })();
   </script>
 
