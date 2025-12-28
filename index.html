@@ -1,10 +1,834 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Angel Uploads</title>
-  </head>
-  <body>
-    Uploads ready
-  </body>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#282828" />
+  <title>مركز رفع الملفات — ثيم ملاك</title>
+  <meta name="description" content="مركز رفع الملفات الخاص بثيم ملاك. ارفع ملفاتك واحصل على رابط مباشر بسرعة وأمان." />
+
+  <style>
+    :root{
+      --afc-bg:#282828;
+      --afc-surface:rgba(255,255,255,.06);
+      --afc-surface-2:rgba(255,255,255,.08);
+      --afc-border:rgba(255,255,255,.12);
+      --afc-border-2:rgba(255,255,255,.18);
+      --afc-text:rgba(255,255,255,.92);
+      --afc-muted:rgba(255,255,255,.62);
+      --afc-muted-2:rgba(255,255,255,.48);
+
+      --afc-primary:#17B4D7;   /* الفاتح الأساسي */
+      --afc-secondary:#2A879E; /* الأغمق الفرعي */
+
+      --afc-success:rgba(23,180,215,.22);
+      --afc-warn:rgba(255,190,92,.18);
+      --afc-danger:rgba(255,92,92,.18);
+
+      --afc-radius:22px;
+      --afc-radius-sm:14px;
+
+      --afc-shadow: 0 18px 60px rgba(0,0,0,.45);
+      --afc-shadow-soft: 0 10px 35px rgba(0,0,0,.30);
+
+      --afc-focus: 0 0 0 3px rgba(23,180,215,.25), 0 0 0 1px rgba(23,180,215,.45);
+      --afc-maxw: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+      background: var(--afc-bg);
+      color: var(--afc-text);
+      line-height:1.45;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .afc-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* خلفية فخمة خفيفة بدون مبالغة */
+    .afc-bgfx{
+      position:fixed; inset:0; z-index:-1;
+      background:
+        radial-gradient(900px 700px at 15% 10%, rgba(23,180,215,.22), transparent 60%),
+        radial-gradient(900px 700px at 90% 15%, rgba(42,135,158,.18), transparent 62%),
+        radial-gradient(1100px 900px at 50% 90%, rgba(23,180,215,.14), transparent 65%),
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+      filter: saturate(1.05);
+    }
+    .afc-gridfx{
+      position:fixed; inset:-2px; z-index:-1; opacity:.16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(closest-side at 50% 25%, black 0 55%, transparent 75%);
+      pointer-events:none;
+    }
+
+    .afc-wrap{
+      max-width: var(--afc-maxw);
+      margin: 0 auto;
+      padding: 26px 18px 40px;
+    }
+
+    /* هيدر */
+    .afc-topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 14px;
+      border: 1px solid var(--afc-border);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border-radius: 18px;
+      box-shadow: var(--afc-shadow-soft);
+      backdrop-filter: blur(10px);
+    }
+    .afc-brand{
+      display:flex; align-items:center; gap:12px;
+      min-width:0;
+    }
+    .afc-logo{
+      width:44px; height:44px; border-radius:14px;
+      background:
+        radial-gradient(15px 15px at 30% 35%, rgba(255,255,255,.55), transparent 65%),
+        linear-gradient(135deg, rgba(23,180,215,.95), rgba(42,135,158,.9));
+      box-shadow: 0 12px 30px rgba(23,180,215,.16);
+      border: 1px solid rgba(255,255,255,.14);
+      flex:0 0 auto;
+    }
+    .afc-brand h1{
+      margin:0;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing:.2px;
+      white-space:nowrap;
+    }
+    .afc-brand p{
+      margin:2px 0 0;
+      font-size: 12px;
+      color: var(--afc-muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 52ch;
+    }
+
+    .afc-actions{display:flex; align-items:center; gap:10px; flex:0 0 auto;}
+    .afc-btn{
+      appearance:none; border:0; cursor:pointer;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--afc-text);
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--afc-border);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      display:inline-flex; align-items:center; gap:8px;
+      user-select:none;
+    }
+    .afc-btn:hover{background: rgba(255,255,255,.09); border-color: var(--afc-border-2)}
+    .afc-btn:active{transform: translateY(1px)}
+    .afc-btn:focus-visible{outline:none; box-shadow: var(--afc-focus)}
+    .afc-btn--primary{
+      color: #062026;
+      background: linear-gradient(135deg, var(--afc-primary), var(--afc-secondary));
+      border-color: rgba(255,255,255,.18);
+    }
+    .afc-btn--primary:hover{filter: brightness(1.02)}
+    .afc-btn--ghost{
+      background: transparent;
+      border-color: transparent;
+      color: var(--afc-muted);
+      padding: 10px 10px;
+    }
+    .afc-btn--ghost:hover{background: rgba(255,255,255,.06); border-color: var(--afc-border); color: var(--afc-text)}
+    .afc-ico{
+      width:18px; height:18px; flex:0 0 auto;
+      display:inline-block;
+    }
+    .afc-ico svg{width:100%; height:100%}
+
+    /* هيرو */
+    .afc-hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 980px){
+      .afc-hero{grid-template-columns: 1fr; }
+    }
+
+    .afc-card{
+      border: 1px solid var(--afc-border);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border-radius: var(--afc-radius);
+      box-shadow: var(--afc-shadow-soft);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+    .afc-card__inner{padding: 18px 18px 16px;}
+    .afc-title{
+      margin: 0;
+      font-size: 30px;
+      font-weight: 950;
+      letter-spacing:.2px;
+      line-height:1.1;
+    }
+    .afc-title span{
+      background: linear-gradient(135deg, rgba(23,180,215,.95), rgba(42,135,158,.95));
+      -webkit-background-clip:text; background-clip:text;
+      color: transparent;
+    }
+    .afc-subtitle{
+      margin: 10px 0 0;
+      color: var(--afc-muted);
+      font-size: 14px;
+      max-width: 70ch;
+    }
+
+    .afc-kpis{
+      display:flex; flex-wrap:wrap;
+      gap:10px;
+      margin-top: 14px;
+    }
+    .afc-pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--afc-border);
+      background: rgba(0,0,0,.18);
+      color: var(--afc-muted);
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .afc-dot{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(255,255,255,.20);
+      box-shadow: 0 0 0 6px rgba(255,255,255,.04);
+    }
+    .afc-dot--p{background: rgba(23,180,215,.95); box-shadow: 0 0 0 6px rgba(23,180,215,.12)}
+    .afc-dot--s{background: rgba(42,135,158,.95); box-shadow: 0 0 0 6px rgba(42,135,158,.12)}
+
+    /* كارت الرفع */
+    .afc-uploader{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .afc-uploader__head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .afc-uploader__head h2{
+      margin:0;
+      font-size: 16px;
+      font-weight: 950;
+      letter-spacing:.2px;
+    }
+    .afc-uploader__head p{
+      margin:6px 0 0;
+      color: var(--afc-muted);
+      font-size: 13px;
+      line-height:1.6;
+    }
+
+    .afc-drop{
+      border: 1px dashed rgba(23,180,215,.55);
+      background: linear-gradient(180deg, rgba(23,180,215,.10), rgba(0,0,0,.10));
+      border-radius: 18px;
+      padding: 16px;
+      min-height: 160px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      transition: border-color .12s ease, background .12s ease, transform .12s ease;
+      outline:none;
+    }
+    .afc-drop:hover{border-color: rgba(23,180,215,.75)}
+    .afc-drop.is-drag{
+      border-color: rgba(23,180,215,.95);
+      background: linear-gradient(180deg, rgba(23,180,215,.16), rgba(0,0,0,.10));
+      transform: translateY(-1px);
+    }
+    .afc-drop:focus-visible{box-shadow: var(--afc-focus)}
+    .afc-drop__inner{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      max-width: 560px;
+    }
+    .afc-drop__icon{
+      width:56px; height:56px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      display:grid; place-items:center;
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+    .afc-drop__icon svg{width:26px;height:26px}
+    .afc-drop__title{
+      margin:0;
+      font-weight: 950;
+      font-size: 14px;
+    }
+    .afc-drop__hint{
+      margin:0;
+      color: var(--afc-muted);
+      font-size: 12px;
+      line-height:1.6;
+    }
+    .afc-drop__meta{
+      margin:0;
+      color: var(--afc-muted-2);
+      font-size: 12px;
+    }
+
+    .afc-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .afc-note{
+      border: 1px solid rgba(255,190,92,.28);
+      background: var(--afc-warn);
+      color: rgba(255,255,255,.78);
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-size: 12px;
+      line-height:1.6;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .afc-note svg{width:18px;height:18px;flex:0 0 auto;opacity:.85}
+
+    .afc-output{
+      border: 1px solid var(--afc-border);
+      border-radius: 16px;
+      background: rgba(0,0,0,.16);
+      padding: 12px;
+      display:grid;
+      gap:10px;
+    }
+    .afc-output__label{
+      margin:0;
+      font-size: 12px;
+      color: var(--afc-muted);
+      font-weight: 800;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .afc-output__field{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .afc-input{
+      width:100%;
+      min-height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--afc-border);
+      background: rgba(255,255,255,.04);
+      color: var(--afc-text);
+      padding: 10px 12px;
+      font-size: 13px;
+      outline:none;
+    }
+    .afc-input:focus-visible{box-shadow: var(--afc-focus)}
+    .afc-input[readonly]{cursor:text}
+
+    .afc-status{
+      margin:0;
+      font-size: 12px;
+      color: var(--afc-muted);
+      min-height: 18px;
+    }
+    .afc-status.is-ok{color: rgba(23,180,215,.92)}
+    .afc-status.is-err{color: rgba(255,130,130,.92)}
+
+    /* مميزات تحت */
+    .afc-features{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 980px){
+      .afc-features{grid-template-columns: 1fr;}
+    }
+    .afc-feature{
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--afc-border);
+      background: rgba(255,255,255,.03);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      min-height: 92px;
+    }
+    .afc-feature__icon{
+      width:44px;height:44px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .afc-feature__icon svg{width:20px;height:20px}
+    .afc-feature h3{
+      margin:0;
+      font-size: 13px;
+      font-weight: 950;
+    }
+    .afc-feature p{
+      margin:6px 0 0;
+      font-size: 12px;
+      color: var(--afc-muted);
+      line-height:1.7;
+    }
+
+    /* فوتر */
+    .afc-footer{
+      margin-top: 18px;
+      padding: 14px 4px 0;
+      color: var(--afc-muted-2);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      opacity:.9;
+    }
+    .afc-footer a{
+      color: rgba(23,180,215,.9);
+      text-decoration:none;
+      border-bottom: 1px dashed rgba(23,180,215,.35);
+    }
+    .afc-footer a:hover{border-bottom-color: rgba(23,180,215,.75)}
+  </style>
+</head>
+
+<body>
+  <div class="afc-bgfx" aria-hidden="true"></div>
+  <div class="afc-gridfx" aria-hidden="true"></div>
+
+  <main class="afc-wrap">
+    <!-- Topbar -->
+    <header class="afc-topbar" role="banner">
+      <div class="afc-brand">
+        <div class="afc-logo" aria-hidden="true"></div>
+        <div style="min-width:0">
+          <h1>Angel Theme — مركز رفع الملفات</h1>
+          <p>ارفع ملفك واحصل على رابط مباشر. بدون خطوات معقّدة.</p>
+        </div>
+      </div>
+
+      <div class="afc-actions">
+        <button class="afc-btn afc-btn--ghost" type="button" id="afcHowBtn" aria-controls="afcHow" aria-expanded="false" title="طريقة الاستخدام">
+          <span class="afc-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 17v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 7h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </span>
+          <span>مساعدة</span>
+        </button>
+
+        <a class="afc-btn afc-btn--primary" href="#upload" id="afcCTA">
+          <span class="afc-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 8l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 14v4a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>ابدأ الرفع الآن</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="afc-hero" aria-label="مقدمة ومركز الرفع">
+      <article class="afc-card">
+        <div class="afc-card__inner">
+          <h2 class="afc-title">مركز رفع ملفات <span>ثيم ملاك</span></h2>
+          <p class="afc-subtitle">
+            تصميم خفيف وفخم، يدي التاجر تجربة محترمة: يرفع الملف، ياخد الرابط، ينسخه… وانتهى.
+            بدون حِمل على المتجر وبدون تعقيد.
+          </p>
+
+          <div class="afc-kpis" role="list" aria-label="مميزات سريعة">
+            <div class="afc-pill" role="listitem"><span class="afc-dot afc-dot--p" aria-hidden="true"></span> رابط مباشر بعد الرفع</div>
+            <div class="afc-pill" role="listitem"><span class="afc-dot afc-dot--s" aria-hidden="true"></span> أسرع تجربة داخل التخصيص</div>
+            <div class="afc-pill" role="listitem"><span class="afc-dot" aria-hidden="true"></span> بدون تخزين محلي داخل المتجر</div>
+          </div>
+
+          <div id="afcHow" hidden style="margin-top:14px">
+            <div class="afc-note" role="note">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2 1 21h22L12 2Z" stroke="currentColor" stroke-width="2" />
+                <path d="M12 9v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 17h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <div>
+                <strong style="display:block; margin-bottom:4px;">طريقة الاستخدام</strong>
+                1) اسحب الملف داخل مربع الرفع أو اضغط لاختيار ملف. 2) انتظر اكتمال الرفع. 3) انسخ الرابط فورًا.
+                إن كنت تستخدم Worker + GitHub Pages فالرابط سيعمل فور انتشار التحديث (قد يأخذ ثوانٍ إلى دقيقة).
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="afc-card" id="upload">
+        <div class="afc-card__inner afc-uploader">
+          <div class="afc-uploader__head">
+            <div>
+              <h2>رفع الملفات</h2>
+              <p>اختر ملفًا وسيتم رفعه ثم تحصل على رابط مباشر. يدعم صور/فيديو/zip حسب إعداداتك.</p>
+            </div>
+          </div>
+
+          <!-- Dropzone -->
+          <div
+            class="afc-drop"
+            id="afcDrop"
+            role="button"
+            tabindex="0"
+            aria-label="منطقة رفع الملفات. اسحب الملف هنا أو اضغط للاختيار"
+          >
+            <div class="afc-drop__inner">
+              <div class="afc-drop__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M8 7l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5 14v4a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="afc-drop__title">اسحب الملف هنا أو اضغط للاختيار</p>
+              <p class="afc-drop__hint">لن يتم حفظ الرابط داخل المتجر تلقائيًا. انسخه فور ظهوره.</p>
+              <p class="afc-drop__meta" id="afcMeta">أقصى حجم يعتمد على إعدادات الرفع لديك.</p>
+            </div>
+          </div>
+
+          <input class="afc-sr" id="afcFile" type="file" />
+
+          <div class="afc-row">
+            <div class="afc-note" role="note" style="flex:1 1 520px">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2 1 21h22L12 2Z" stroke="currentColor" stroke-width="2" />
+                <path d="M12 9v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 17h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <div>
+                <strong style="display:block; margin-bottom:4px;">تنبيه مهم</strong>
+                الرابط يظهر مرة واحدة في الواجهة. انسخه مباشرة واحتفظ به.
+              </div>
+            </div>
+
+            <button class="afc-btn" type="button" id="afcReset" title="رفع ملف آخر">
+              <span class="afc-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M21 12a9 9 0 1 1-3-6.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M21 4v6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span>رفع ملف آخر</span>
+            </button>
+          </div>
+
+          <!-- Output -->
+          <div class="afc-output" aria-live="polite">
+            <p class="afc-output__label">
+              <span>الرابط المباشر</span>
+              <span id="afcProgress" aria-label="حالة الرفع">جاهز</span>
+            </p>
+
+            <div class="afc-output__field">
+              <input class="afc-input" id="afcUrl" type="text" value="" placeholder="سيظهر الرابط هنا بعد الرفع" readonly />
+              <button class="afc-btn afc-btn--primary" type="button" id="afcCopy" disabled>
+                <span class="afc-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 9h10v12H9V9Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </span>
+                <span>نسخ الرابط</span>
+              </button>
+            </div>
+
+            <p class="afc-status" id="afcStatus" role="status"></p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Features -->
+    <section class="afc-features" aria-label="لماذا هذا المركز">
+      <div class="afc-feature">
+        <div class="afc-feature__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 12l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 22A10 10 0 1 0 12 2a10 10 0 0 0 0 20Z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div>
+          <h3>تجربة محترمة للتاجر</h3>
+          <p>واجهة مركزة على الهدف: رفع → رابط → نسخ. بدون تشتيت.</p>
+        </div>
+      </div>
+
+      <div class="afc-feature">
+        <div class="afc-feature__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 8l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 14v4a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3>سريع وخفيف</h3>
+          <p>CSS بسيط وJS صغير، مناسب للتخصيص بدون ما يبطّأ أي شيء.</p>
+        </div>
+      </div>
+
+      <div class="afc-feature">
+        <div class="afc-feature__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3>قابل للتأمين</h3>
+          <p>تقدر تربطه بـ Worker + Token + Serial System حسب نظامك المدفوع.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="afc-footer" role="contentinfo">
+      <div>© AfterAds — Angel Theme</div>
+      <div>لو عندك مشكلة في الرفع: تواصل على واتساب الدعم (أضفه لاحقًا داخل الثيم)</div>
+    </footer>
+  </main>
+
+  <script>
+    /**
+     * صفحة ستاتيك — تشتغل على GitHub Pages.
+     * لو عندك Worker شغال: حط رابط الـ endpoint هنا.
+     * مثال: https://angel-upload.xxx.workers.dev/upload
+     */
+    const AFC = {
+      workerUploadEndpoint: "https://angel-upload.blue-truth-96a6.workers.dev/upload", // عدّلها على رابطك النهائي
+      // صفحات GitHub Pages للملفات (لو بتبني الرابط داخل Worker بالفعل، سيعود url جاهز)
+      // pagesBase: "https://angel-theme.github.io/assets/",
+      maxNameLen: 120
+    };
+
+    (function(){
+      const $ = (sel, root=document)=> root.querySelector(sel);
+
+      const howBtn = $("#afcHowBtn");
+      const howBox = $("#afcHow");
+
+      const drop = $("#afcDrop");
+      const fileInput = $("#afcFile");
+      const resetBtn = $("#afcReset");
+
+      const urlInput = $("#afcUrl");
+      const copyBtn = $("#afcCopy");
+      const statusEl = $("#afcStatus");
+      const progressEl = $("#afcProgress");
+      const metaEl = $("#afcMeta");
+
+      // تحسين بسيط للرسالة حسب البروزر
+      metaEl.textContent = "الصيغ المدعومة حسب إعدادات السيرفر. يُفضّل صور/فيديو/ZIP.";
+
+      function setStatus(msg, type){
+        statusEl.classList.remove("is-ok","is-err");
+        if(type === "ok") statusEl.classList.add("is-ok");
+        if(type === "err") statusEl.classList.add("is-err");
+        statusEl.textContent = msg || "";
+      }
+
+      function setProgress(text){
+        progressEl.textContent = text || "جاهز";
+      }
+
+      function setUrl(url){
+        urlInput.value = url || "";
+        copyBtn.disabled = !url;
+      }
+
+      function sanitizeName(name){
+        const n = String(name || "file").trim();
+        return n.length > AFC.maxNameLen ? n.slice(0, AFC.maxNameLen) : n;
+      }
+
+      function openPicker(){
+        fileInput.click();
+      }
+
+      function onKeyOpen(e){
+        const k = e.key;
+        if(k === "Enter" || k === " "){
+          e.preventDefault();
+          openPicker();
+        }
+      }
+
+      function b64FromArrayBuffer(buffer){
+        let binary = "";
+        const bytes = new Uint8Array(buffer);
+        const chunk = 0x8000;
+        for(let i=0; i<bytes.length; i+=chunk){
+          binary += String.fromCharCode.apply(null, bytes.subarray(i, i+chunk));
+        }
+        return btoa(binary);
+      }
+
+      async function uploadFile(file){
+        if(!file) return;
+
+        setStatus("", "");
+        setUrl("");
+        setProgress("جاري التحضير...");
+
+        try{
+          const storeId = (window.salla && salla.config && salla.config.get)
+            ? String(salla.config.get("store.id") || "store")
+            : "store";
+
+          const fileName = sanitizeName(file.name);
+          const contentType = file.type || "application/octet-stream";
+
+          setProgress("جاري قراءة الملف...");
+          const buf = await file.arrayBuffer();
+          const file_base64 = b64FromArrayBuffer(buf);
+
+          setProgress("جاري الرفع...");
+          const payload = {
+            store_id: storeId,
+            file_name: fileName,
+            content_type: contentType,
+            file_base64
+          };
+
+          const res = await fetch(AFC.workerUploadEndpoint, {
+            method: "POST",
+            headers: { "Content-Type":"application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json().catch(()=> ({}));
+          if(!res.ok || !data || data.ok !== true){
+            throw new Error(data && data.error ? data.error : "فشل الرفع. تحقق من إعدادات الـ Worker/Token.");
+          }
+
+          // Worker يرجّع url جاهز
+          const finalUrl = data.file && data.file.url ? data.file.url : "";
+          if(!finalUrl) throw new Error("تم الرفع لكن لم يتم إرجاع الرابط.");
+
+          setUrl(finalUrl);
+          setProgress("تم الرفع بنجاح");
+          setStatus("تم رفع الملف بنجاح. انسخ الرابط الآن واحتفظ به.", "ok");
+
+          // تحديد الرابط مباشرة لتسهيل النسخ
+          urlInput.focus();
+          urlInput.select();
+
+        }catch(err){
+          setProgress("حدث خطأ");
+          setStatus(String(err && err.message ? err.message : "حدث خطأ أثناء الرفع"), "err");
+        }
+      }
+
+      async function copyUrl(){
+        const v = urlInput.value.trim();
+        if(!v) return;
+
+        try{
+          await navigator.clipboard.writeText(v);
+          setStatus("تم نسخ الرابط بنجاح.", "ok");
+        }catch(_){
+          // fallback
+          urlInput.focus();
+          urlInput.select();
+          const ok = document.execCommand && document.execCommand("copy");
+          setStatus(ok ? "تم نسخ الرابط بنجاح." : "لم أستطع النسخ تلقائيًا. انسخ يدويًا.", ok ? "ok" : "err");
+        }
+      }
+
+      function resetUI(){
+        fileInput.value = "";
+        setUrl("");
+        setProgress("جاهز");
+        setStatus("", "");
+      }
+
+      // Events
+      howBtn.addEventListener("click", ()=>{
+        const expanded = howBtn.getAttribute("aria-expanded") === "true";
+        howBtn.setAttribute("aria-expanded", String(!expanded));
+        howBox.hidden = expanded;
+      });
+
+      drop.addEventListener("click", openPicker);
+      drop.addEventListener("keydown", onKeyOpen);
+
+      fileInput.addEventListener("change", ()=>{
+        const file = fileInput.files && fileInput.files[0];
+        uploadFile(file);
+      });
+
+      // Drag & Drop
+      ["dragenter","dragover"].forEach(evt=>{
+        drop.addEventListener(evt, (e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          drop.classList.add("is-drag");
+        });
+      });
+      ["dragleave","drop"].forEach(evt=>{
+        drop.addEventListener(evt, (e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          drop.classList.remove("is-drag");
+        });
+      });
+      drop.addEventListener("drop", (e)=>{
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if(file) uploadFile(file);
+      });
+
+      copyBtn.addEventListener("click", copyUrl);
+      resetBtn.addEventListener("click", resetUI);
+
+      // تحسينات: لو فيه رابط موجود، نفعّل النسخ
+      if(urlInput.value.trim()) copyBtn.disabled = false;
+    })();
+  </script>
+</body>
 </html>
