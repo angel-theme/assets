@@ -11,6 +11,7 @@
   <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#05060a" />
+  <link href="https://cdn.salla.network/fonts/pingarlt.css?v=0.2" rel="stylesheet">
 
   <style>
     :root{
@@ -45,7 +46,6 @@
 
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
       color: var(--text);
       background:
         radial-gradient(1100px 700px at 20% 12%, rgba(25,184,221,.22), transparent 62%),
@@ -53,6 +53,15 @@
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
+    
+    html, body {
+      font-family: pingarlt, Helvetica, Arial, sans-serif;
+    }
+    h1, h2, h3, .hero__title {
+      font-weight: 900;
+      letter-spacing: -0.4px;
+    }
+
 
     /* Noise overlay (CSS only) */
     body::before{
