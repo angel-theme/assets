@@ -1,1 +1,33 @@
-{}
+{
+  "global": {
+    "max_filename_length": 120,
+    "sanitize_filenames": true,
+    "block_extensions": ["exe", "js", "php", "html", "svg"],
+    "messages": {
+      "file_too_large": "حجم الملف أكبر من المسموح في باقتك",
+      "type_not_allowed": "صيغة الملف غير مدعومة في باقتك",
+      "no_license": "خدمة الرفع غير مفعلة لهذا المتجر",
+      "generic_error": "حدث خطأ أثناء رفع الملف"
+    }
+  },
+  "plans": {
+    "basic": {
+      "limits": {
+        "max_size_mb": 10,
+        "allowed_extensions": ["jpg", "jpeg", "png", "zip"]
+      }
+    },
+    "pro": {
+      "limits": {
+        "max_size_mb": 100,
+        "allowed_extensions": ["jpg", "jpeg", "png", "webp", "mp4", "zip", "pdf"]
+      }
+    },
+    "lifetime": {
+      "limits": {
+        "max_size_mb": 500,
+        "allowed_extensions": ["*"]
+      }
+    }
+  }
+}
