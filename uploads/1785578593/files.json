@@ -1,7 +1,19 @@
 {
   "storeId": "1785578593",
-  "updatedAt": "2025-12-30T04:53:09.041Z",
+  "updatedAt": "2025-12-30T04:53:45.777Z",
   "items": [
+    {
+      "id": "1767070424877-vevmjqqyrabvxj8wmdj4aqyk6banhrxifohkfyp4.webp",
+      "storeId": "1785578593",
+      "plan": "business",
+      "filename": "vevmjqqyrabvxj8wmdj4aqyk6banhrxifohkfyp4.webp",
+      "path": "uploads/1785578593/1767070424877-vevmjqqyrabvxj8wmdj4aqyk6banhrxifohkfyp4.webp",
+      "url": "https://angel-theme.github.io/assets/uploads/1785578593/1767070424877-vevmjqqyrabvxj8wmdj4aqyk6banhrxifohkfyp4.webp",
+      "size": 5064,
+      "type": "image/webp",
+      "ext": "webp",
+      "uploadedAt": "2025-12-30T04:53:44.877Z"
+    },
     {
       "id": "1767070387385-logo-light-wide.webp",
       "storeId": "1785578593",
