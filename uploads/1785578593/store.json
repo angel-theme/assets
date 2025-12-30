@@ -1,0 +1,21 @@
+{
+  "storeId": "1785578593",
+  "store": {
+    "id": "1785578593",
+    "name": "متجر تجريبي",
+    "domain": null,
+    "url": "https://salla.design/dev-iirpbyhverjkadke/"
+  },
+  "stats": {
+    "totalUploads": 1,
+    "totalBytes": 63734,
+    "lastUploadAt": "2025-12-30T00:13:49.374Z"
+  },
+  "planHistory": [
+    {
+      "plan": "business",
+      "at": "2025-12-30T00:13:49.374Z"
+    }
+  ],
+  "updatedAt": "2025-12-30T00:13:50.797Z"
+}
