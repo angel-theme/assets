@@ -1,7 +1,19 @@
 {
   "storeId": "1785578593",
-  "updatedAt": "2025-12-31T00:15:40.195Z",
+  "updatedAt": "2025-12-31T00:19:34.695Z",
   "items": [
+    {
+      "id": "1767140373789-cloud-rain-alt.svg",
+      "storeId": "1785578593",
+      "plan": "business",
+      "filename": "cloud-rain-alt.svg",
+      "path": "uploads/1785578593/1767140373789-cloud-rain-alt.svg",
+      "url": "https://angel-theme.github.io/assets/uploads/1785578593/1767140373789-cloud-rain-alt.svg",
+      "size": 617,
+      "type": "image/svg+xml",
+      "ext": "svg",
+      "uploadedAt": "2025-12-31T00:19:33.789Z"
+    },
     {
       "id": "1767140139080-vevmjqqyrabvxj8wmdj4aqyk6banhrxifohkfyp4.webp",
       "storeId": "1785578593",
