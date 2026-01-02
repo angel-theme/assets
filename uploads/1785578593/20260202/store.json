@@ -6,9 +6,9 @@
     "url": "KTozNT9lf2Y6Pj8pInwhMSxbV1waJSsxaCU2IjkrJjszJiAvPz5WW1ca"
   },
   "stats": {
-    "totalUploads": 1,
-    "totalBytes": 617,
-    "lastUploadAt": "2026-01-02T05:16:23.673Z"
+    "totalUploads": 2,
+    "totalBytes": 1234,
+    "lastUploadAt": "2026-01-02T05:39:18.099Z"
   },
   "planHistory": [
     {
@@ -16,5 +16,5 @@
       "at": "2026-01-02T05:16:23.673Z"
     }
   ],
-  "updatedAt": "2026-01-02T05:16:24.959Z"
+  "updatedAt": "2026-01-02T05:39:19.114Z"
 }
