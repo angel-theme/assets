@@ -1,7 +1,19 @@
 {
   "storeId": "1785578593",
-  "updatedAt": "2026-01-03T20:20:02.438Z",
+  "updatedAt": "2026-01-03T20:21:21.696Z",
   "items": [
+    {
+      "id": "1767471680176-777.jpg",
+      "storeId": "1785578593",
+      "plan": "pro",
+      "filename": "777.jpg",
+      "path": "uploads/1785578593/20260202/1767471680176-777.jpg",
+      "url": "https://angel-theme.github.io/assets/uploads/1785578593/20260202/1767471680176-777.jpg",
+      "size": 63734,
+      "type": "image/jpeg",
+      "ext": "jpg",
+      "uploadedAt": "2026-01-03T20:21:20.176Z"
+    },
     {
       "id": "1767471601197-logo-light-wide.webp",
       "storeId": "1785578593",
