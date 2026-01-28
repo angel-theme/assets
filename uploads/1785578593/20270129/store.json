@@ -1,0 +1,20 @@
+{
+  "storeId": "1785578593",
+  "store": {
+    "id": "1785578593",
+    "name": "متجر تجريبي",
+    "url": "KTozNT9lf2Y6Pj8pInwhMSxbV1waJSsxaCU2IjkrJjszJiAvPz5WW1ca"
+  },
+  "stats": {
+    "totalUploads": 1,
+    "totalBytes": 5064,
+    "lastUploadAt": "2026-01-28T22:29:20.217Z"
+  },
+  "planHistory": [
+    {
+      "plan": "business",
+      "at": "2026-01-28T22:29:20.217Z"
+    }
+  ],
+  "updatedAt": "2026-01-28T22:29:22.812Z"
+}
